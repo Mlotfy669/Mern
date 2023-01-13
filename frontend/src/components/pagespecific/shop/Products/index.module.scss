@@ -1,0 +1,99 @@
+@import '../../../assets/_variable.scss';
+
+.container {
+
+    flex: 9;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 25px;
+
+    .search_sort {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        column-gap: 10px;
+
+        input,
+        select {
+            height: 40px;
+            outline: none;
+            border: 1px solid #98dbd6;
+            padding: 10px 15px;
+            width: 100%;
+            border-radius: 5px;
+            caret-color: #088178;
+            color: #088178;
+            font-size: 14px;
+        }
+        ::placeholder {
+            color: #088178;
+        }
+        .searchContainer {
+            flex: 1;
+        }
+        .sortContainer {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            column-gap: 10px;
+            .title {
+                color: #088178;
+                font-size: 17px;
+            }
+            select {
+                padding: 10px;
+                width: fit-content;
+            }
+        }
+        .filterRes {
+            button {
+                width: 40px;
+                height: 40px;
+                padding: 5px;
+                outline: none;
+                background-color: transparent;
+                border: 1px solid #98dbd6;
+                border-radius:5px ;
+                cursor: pointer;
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .notFound {
+        max-width: 100%;
+    }
+
+    .wrapper {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        justify-items: center;
+    }
+}
+
+@media screen and (min-width:734px) {
+    .filterRes {
+        display: none;
+    }
+}
+@media screen and (max-width:734px) {
+    .container {
+        padding: 0 5px !important;
+    }
+}
+@media screen and (max-width:500px) {
+    .sortContainer {
+        flex: unset !important;
+        .title{
+            display: none;
+        }
+    }
+}

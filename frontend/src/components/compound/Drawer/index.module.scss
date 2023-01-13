@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    @media screen and (max-width:600px) {
+        margin-top: 10px;
+    }
+}
+
+.Badges {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+
+    .icon {
+        color: rgba(0, 0, 0, 0.663);
+    }
+}
+
+.itemText {
+    color: rgba(0, 0, 0, 0.82);
+    font-weight: bold !important;
+    text-decoration: none !important
+}
+
+a.active {
+    color: rgba(0, 0, 0, 0.82);
+    font-weight: bold !important;
+    text-decoration: none !important;
+    & > div {
+        background-color: #aeccc56b;
+    }
+    & > div:hover {
+        background-color: rgb(174 204 197 / 71%);
+    }
+}
+a.inactive {
+    color: rgba(0, 0, 0, 0.82);
+    font-weight: bold !important;
+    text-decoration: none !important
+}

@@ -1,0 +1,72 @@
+@import '../../../assets/_variable.scss';
+
+.container {
+    min-height: 85vh;
+    width: 100%;
+    background-color: #cee8e0;
+    display: flex;
+    .wrapper {
+        max-width: 1240px;
+        width: 100%;
+        margin: auto;
+        padding: 30px 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 25px;
+        .getTouch {
+            font-size: 18px;
+            color: $green;
+            font-family: sans-serif;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 58px;
+            font-weight: 800;
+            color: #222;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        p {
+            font-size: 16px;
+            text-align: center;
+            color: #465b52;
+            max-width: 600px;
+            width: 100%;
+            line-height: 24px;
+        }
+        .btns {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            column-gap: 20px;
+            button {
+                height: 45px;
+                border-radius: 5px;
+                outline: none;
+                padding: 12px 30px;
+                cursor: pointer;
+                font-weight: 500;
+                transition: 0.3s;
+                &:hover {
+                    transform: translateY(-5px);
+                }
+            }
+            button:first-child {
+                background-color: $green;
+                color: white;
+                border: 0;
+            }
+            button:last-child {
+                background-color: transparent;
+                color: $green;
+                border: 1px solid $green;
+            }
+        }
+    }
+}
+@media screen and (max-width:600px) {
+    h1 {
+        font-size: 40px !important;
+    }
+}

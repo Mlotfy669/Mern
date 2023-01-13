@@ -1,0 +1,12 @@
+@import '../../assets/_variable.scss';
+
+.container {
+    display: flex;
+    align-items: flex-start;
+    max-width: 1240px;
+    width: 100%;
+    margin: 50px auto;
+    padding: 0 15px;
+    column-gap: 20px;
+    position: relative;
+}

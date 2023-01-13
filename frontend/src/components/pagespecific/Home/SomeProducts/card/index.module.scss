@@ -1,0 +1,135 @@
+@import '../../../../assets/_variable.scss';
+
+.cardContainer {
+    position: relative;
+    background-color: white;
+    border: 1px solid #cce7d0;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    overflow: hidden;
+    padding: 12px;
+    row-gap: 15px;
+
+    .UpperContainer {
+        position: relative;
+        &:hover {
+            .options {
+                opacity: 1;
+            }
+        }
+        .imgContainer {
+            width: 100%;
+            padding: 10px;
+            overflow: hidden;
+
+            img {
+                width: 160px;
+                height: 160px;
+                object-fit: contain;
+            }
+        }
+        .options {
+            transition: 0.5s;
+            opacity: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50% , -50%);
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            .Btn {
+                width: 34px;
+                height: 34px;
+                font-size: 13px;
+                background-color: #e8f6ea;
+                border: 1px solid #98dbd6;
+                transition: 0.4s;
+                &:hover {
+                    transform: translateY(-5px);
+                    background-color: $green;
+                    border: 0;
+                    .icon {
+                        color: white;
+                    }
+                }
+                .icon {
+                    color: $green;
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+
+    .infoContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: 5px;
+
+        .brand {
+            color: #90908e;
+            font-size: 12px;
+        }
+
+        .title {
+            color: #1a1a1a;
+            font-size: 15px;
+            font-weight: 500;
+            max-width: 175px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .category {
+            color: $green;
+        }
+
+        .lowerContainer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            column-gap: 10px;
+            width: 100%;
+            .rate_race {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: space-between;
+                row-gap: 10px;
+                .price {
+                    font-size: 18px;
+                    font-weight: 700;
+                    color: #088178;
+                }
+            }
+
+            .addToCart {
+                .addBtn {
+                    width: 34px;
+                    height: 34px;
+                    font-size: 13px;
+                    background-color: #e8f6ea;
+                    border: 1px solid #98dbd6;
+                    transition: 0.4s;
+                    &:hover {
+                        transform: translateY(-5px);
+                        background-color: $green;
+                        .icon {
+                            color: white;
+                        }
+                    }
+                    .icon {
+                        color: $green;
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+}

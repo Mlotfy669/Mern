@@ -1,0 +1,145 @@
+@import '../../components/assets/_variable.scss';
+
+.Container {
+    min-height: calc(100vh - 530px);
+    max-width: 1240px;
+    width: 100%;
+    margin: auto;
+    padding: 50px 15px;
+    .loginForm {
+        max-width: 500px;
+        width: 100%;
+        margin: auto;
+        background-color: white;
+        border-radius: 10px;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: 20px;
+        box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+        -webkit-box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+        -moz-box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+        .title {
+            font-size: 1.5rem;
+            color: rgba(0, 0, 0, 0.776);
+            font-weight:600;
+        }
+        .Remember_Forget {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            .label {
+                color:rgba(0, 0, 0, 0.6);
+            }
+            a {
+                color:rgba(0, 0, 0, 0.6);
+                text-decoration: none;
+            }
+        }
+        .submit {
+            width: 100%;
+            border: 1px solid $green;
+            color: white;
+            font-weight: 600;
+            height: 45px;
+            position: relative;
+            z-index: 1;
+            background-color: transparent;
+            &::before {
+                position: absolute;
+                content: "";
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 50%;
+                background-color: $green;
+                z-index: -1;
+                transition: 0.3s;
+            }
+            &::after {
+                position: absolute;
+                content: "";
+                right: 0;
+                top: 0;
+                height: 100%;
+                width: 50%;
+                background-color: $green;
+                z-index: -1;
+                transition: 0.3s;
+            }
+            &:hover {
+                color: $green;
+                &:before , &:after{
+                    width: 0;
+                }
+            }
+        }
+        .or {
+            display: flex;
+            align-items: center;
+            column-gap: 10px;
+            width: 100%;
+            span:first-child , span:last-child {
+                height: 2px;
+                background-color: #ddd;
+                flex: 1;
+            }
+        }
+        .socail {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            column-gap: 10px;
+            width: 100%;
+            button {
+                padding: 10px 20px;
+                border: 0;
+                outline: none;
+                height: 45px;
+                display: flex;
+                align-items: center;
+                column-gap: 10px;
+                color: white;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: 0.3s;
+                font-weight: 600;
+            }
+            button:first-child{
+                background-color: #344e86;
+                &:hover {
+                    background-color: #2d4e95;
+                    
+                }
+            }
+            button:last-child{
+                background-color: #d85040;
+                &:hover {
+                    background-color: #db4433;
+
+                }
+            }
+        }
+        .have_Account {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            column-gap: 10px;
+            width: 100%;
+            font-weight: 500;
+            span {
+                color: rgba(0, 0, 0, 0.7);
+            }
+            a {
+                color: rgba(0, 0, 0, 0.863);
+                transition: 0.3s;
+                text-decoration: none;
+                &:hover {
+                    color: $green;
+                }
+            }
+        }
+    }
+}

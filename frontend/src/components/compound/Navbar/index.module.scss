@@ -1,0 +1,53 @@
+@import '../../assets/_variable.scss';
+
+.Container {
+    height: 60px;
+    background-color: #e4ffe7;
+    width: 100%;
+    border-top: 1px solid #eee;
+    .wrapper {
+        height: 100%;
+        max-width: 1240px;
+        width: 100%;
+        margin: auto;
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .logo {
+            font-size: 2rem;
+            font-family: cursive;
+            color: $green ;
+        }
+        .menu {
+            display: flex;
+            align-items: center;
+            column-gap: 10px;
+            a.active {
+                color: $green ;
+                font-weight: 600;
+            }
+            a {
+                text-decoration: none;
+                color: black;
+                transition: 0.3s;
+                &:hover {
+                    color: $green ;
+                    transform: translateY(-3px);
+                }
+            }
+            
+        }
+        .Badges {
+            display: flex;
+            align-items: center;
+            column-gap: 5px;
+
+            .icon {
+                color: rgba(0, 0, 0, 0.663);
+            }
+
+        }
+    }
+}
