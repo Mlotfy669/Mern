@@ -6,6 +6,8 @@ import { Avatar } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { resetLoginUser } from '../../../redux/slices/loginSlice';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -50,14 +52,14 @@ const UserMenu = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
         setAnchorEl(null);
-        window.localStorage.removeItem("user")
-        navigate('/register')
+        // window.localStorage.removeItem("user")
+        // navigate('/register')
     };
 
     return (
@@ -84,7 +86,10 @@ const UserMenu = () => {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                <MenuItem onClick={() => {
+                    dispatch(resetLoginUser()) ;
+                    navigate('/login')
+                }}>Logout</MenuItem>
             </Menu>
         </div>
     );

@@ -3,10 +3,11 @@ import { persistReducer, persistStore } from "redux-persist"
 import storage from "redux-persist/lib/storage"
 // import slices
 import ProductSlices from './slices/products'
-
+import loginSlice from "./slices/loginSlice";
 
 const reducers = combineReducers({
-  products : ProductSlices
+  products : ProductSlices,
+  loginInfo : loginSlice
 })
 
 const presistConfig = {

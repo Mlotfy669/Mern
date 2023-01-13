@@ -35,7 +35,7 @@ const ProductsContainer = ({ loading, data, handleSorting, handleSearch, openfil
       <div className={styles.wrapper}>
         {
           loading ?
-            data?.map((_, index) => (
+            [...Array(12)].map((_, index) => (
               <Skeleton
                 key={index}
                 variant='rectangular'

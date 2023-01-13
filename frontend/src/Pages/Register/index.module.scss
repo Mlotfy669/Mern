@@ -1,11 +1,12 @@
 @import '../../components/assets/_variable.scss';
 
 .Container {
-    min-height: calc(100vh - 530px);
+    min-height: 100vh;
     max-width: 1240px;
     width: 100%;
     margin: auto;
     padding: 50px 15px;
+    display: flex;
     .registerForm {
         max-width: 500px;
         width: 100%;

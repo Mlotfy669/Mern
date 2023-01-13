@@ -19,7 +19,8 @@
         padding: 25px 15px;
         transition: 0.3s;
         box-shadow: 20px 20px 54px rgb(0 0 0 / 3%);
-
+        background: #cce7d078;
+        border-radius: 10px;
         &:hover {
             box-shadow: 20px 20px 54px rgb(0 0 0 / 5%);
             transform: translateY(-5px);

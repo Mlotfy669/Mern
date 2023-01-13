@@ -1,12 +1,17 @@
-import React, { Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
-
+import React, { Suspense ,useEffect } from 'react';
+import { Route, Routes, useNavigate, useNavigation } from 'react-router-dom';
+// mui 
+import { useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+// local component
+import Annouencement from './components/compound/Annouence';
 import Loader from './components/compound/Loader';
-
+import NewsLetter from './components/compound/NewsLetters';
+import Footer from './components/compound/Footer';
+import Navbar from './components/compound/Navbar';
+import MuiDrawer from './components/compound/Drawer';
 // lazy routes 
 const LazyHome = React.lazy(() => import('./Pages/Home'));
-const LazyLogin = React.lazy(() => import('./Pages/Login'));
-const LazyRegister = React.lazy(() => import('./Pages/Register'));
 const LazyShop = React.lazy(() => import('./Pages/Shop'));
 const LazyContact = React.lazy(() => import('./Pages/Contact'));
 const LazyAbout = React.lazy(() => import('./Pages/About'));
@@ -15,56 +20,76 @@ const LazyWishList = React.lazy(() => import('./Pages/Wishlist'));
 const LazyCompare = React.lazy(() => import('./Pages/Compare'));
 
 
-const RoutesContainer = () => {
+const PrivateRoutes = () => {
+
+  const theme = useTheme();
+  const isTablet = useMediaQuery(theme.breakpoints.down('sm'));
+  const navigate = useNavigate()
+  let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+  useEffect(() => {
+    if(!userInfo) {
+      navigate('/login')
+    }
+  }, [])
+  
   return (
-    <Routes>
-        <Route path='/' element={
-            <Suspense fallback={<Loader />}>
-              <LazyHome />
-            </Suspense>
-          }></Route>
-        <Route path='login' element={
-            <Suspense fallback={<Loader />}>
-              <LazyLogin />
-            </Suspense>
-          }></Route>
-        <Route path='register' element={
-            <Suspense fallback={<Loader />}>
-              <LazyRegister />
-            </Suspense>
-          }></Route>
-        <Route path='shop' element={
-            <Suspense fallback={<Loader />}>
-              <LazyShop />
-            </Suspense>
-          }></Route>
-        <Route path='contact' element={
-            <Suspense fallback={<Loader />}>
-              <LazyContact />
-            </Suspense>
-          }></Route>
-        <Route path='about' element={
-            <Suspense fallback={<Loader />}>
-              <LazyAbout />
-            </Suspense>
-          }></Route>
-        <Route path='shopping-cart' element={
-            <Suspense fallback={<Loader />}>
-              <LazyShoppingCart />
-            </Suspense>
-          }></Route>
-        <Route path='wishlist' element={
-            <Suspense fallback={<Loader />}>
-              <LazyWishList />
-            </Suspense>
-          }></Route>
-        <Route path='compare' element={
-            <Suspense fallback={<Loader />}>
-              <LazyCompare />
-            </Suspense>
-          }></Route>
-      </Routes>
+
+    <>
+      {
+        userInfo &&
+        <>
+          <Annouencement />
+          {isTablet ? (
+            <MuiDrawer />
+          ) : (
+            <Navbar />
+          )}
+          <div style={{ minHeight: '80vh' }}>
+            <Routes>
+              <Route path='/' element={
+                <Suspense fallback={<Loader />}>
+                  <LazyHome />
+                </Suspense>
+              }></Route>
+              <Route path='shop' element={
+                <Suspense fallback={<Loader />}>
+                  <LazyShop />
+                </Suspense>
+              }></Route>
+              <Route path='contact' element={
+                <Suspense fallback={<Loader />}>
+                  <LazyContact />
+                </Suspense>
+              }></Route>
+              <Route path='about' element={
+                <Suspense fallback={<Loader />}>
+                  <LazyAbout />
+                </Suspense>
+              }></Route>
+              <Route path='shopping-cart' element={
+                <Suspense fallback={<Loader />}>
+                  <LazyShoppingCart />
+                </Suspense>
+              }></Route>
+              <Route path='wishlist' element={
+                <Suspense fallback={<Loader />}>
+                  <LazyWishList />
+                </Suspense>
+              }></Route>
+              <Route path='compare' element={
+                <Suspense fallback={<Loader />}>
+                  <LazyCompare />
+                </Suspense>
+              }></Route>
+            </Routes>
+          </div>
+          <NewsLetter />
+          <Footer />
+        </>
+      }
+    </>
   )
 }
 
-export default RoutesContainer
+export default PrivateRoutes

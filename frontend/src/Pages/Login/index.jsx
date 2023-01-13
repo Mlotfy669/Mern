@@ -8,7 +8,8 @@ import Aos from 'aos'
 import 'aos/dist/aos.css'
 import MuiAlert from '@mui/material/Alert';
 import styles from './index.module.scss'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { loginAction } from '../../redux/slices/loginSlice'
 const initailValue = {
     email: "",
     password: "",
@@ -28,6 +29,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const Login = () => {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [openSnackbar, setOpenSnackbar] = useState(false);
 
     useEffect(() => {
@@ -41,17 +43,18 @@ const Login = () => {
         }
         setOpenSnackbar(false);
     };
+    const { userInfo } = useSelector(state => state.loginInfo)
+
+    console.log(userInfo)
+    useEffect(() => {
+        if(userInfo) {
+            navigate('/')
+        }
+    },[navigate, userInfo])
     return (
         <div className={styles.Container} data-aos="fade-up">
             <Formik initialValues={initailValue} validationSchema={validationSchema} onSubmit={values => {
-                let getUser = JSON.parse(localStorage.getItem('user'))
-                if (getUser.email === values.email) {
-                    if (getUser.password === values.password){
-                        navigate('/');
-                    }
-                } else {
-                    setOpenSnackbar(true);
-                }
+                dispatch(loginAction({ email: values.email, password: values.password }))
             }}>
                 <Form className={styles.loginForm}>
                     <span className={styles.title}>Login</span>

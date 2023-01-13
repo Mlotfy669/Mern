@@ -1,0 +1,13 @@
+.pageContainer {
+  background-color: #f4f7f9;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 18vw;
+    min-width: 165px;
+  }
+}

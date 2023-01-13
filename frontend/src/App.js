@@ -1,32 +1,45 @@
+import React, { Suspense } from 'react';
+// react router dom
+import { Route, Routes } from 'react-router-dom';
+// local component 
+import Loader from './components/compound/Loader';
+import PrivateRoutes from './Routes';
+// local styles
 import './App.scss';
-import RoutesContainer from './Routes';
-
-import { useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-// component 
-import Annouencement from './components/compound/Annouence';
-import Navbar from './components/compound/Navbar';
-import MuiDrawer from './components/compound/Drawer';
-import NewsLetter from './components/compound/NewsLetters';
-import Footer from './components/compound/Footer';
-
+// lazy loading pages
+const LazyNotFound404 = React.lazy(() => import('./Pages/404'));
+const LazyLogin = React.lazy(() => import('./Pages/Login'));
+const LazyRegister = React.lazy(() => import('./Pages/Register'));
 
 const App = () => {
 
-  const theme = useTheme();
-  const isTablet = useMediaQuery(theme.breakpoints.down('sm'));
+
 
   return (
     <div className="App">
-      <Annouencement />
-      {isTablet ? (
-        <MuiDrawer />
-      ) : (
-        <Navbar />
-      )}
-      <RoutesContainer />
-      <NewsLetter />
-      <Footer />
+      <Routes>
+        {/* login page */}
+        <Route path='/login' element={
+          <Suspense fallback={<Loader />}>
+            <LazyLogin />
+          </Suspense>
+        }></Route>
+        {/* register page */}
+        <Route path='/register' element={
+          <Suspense fallback={<Loader />}>
+            <LazyRegister />
+          </Suspense>
+        }></Route>
+        {/* all pages */}
+        <Route path="/*" element={<PrivateRoutes />} />
+        {/* 404 page */}
+        <Route path="/404" element={
+          <Suspense fallback={<Loader />}>
+            <LazyNotFound404 />
+          </Suspense>
+        }>
+        </Route>
+      </Routes>
     </div>
   );
 }
