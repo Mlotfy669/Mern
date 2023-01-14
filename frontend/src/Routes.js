@@ -1,5 +1,5 @@
 import React, { Suspense ,useEffect } from 'react';
-import { Route, Routes, useNavigate, useNavigation } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 // mui 
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -10,6 +10,8 @@ import NewsLetter from './components/compound/NewsLetters';
 import Footer from './components/compound/Footer';
 import Navbar from './components/compound/Navbar';
 import MuiDrawer from './components/compound/Drawer';
+import { getProducts } from './redux/slices/products';
+import { useDispatch } from 'react-redux';
 // lazy routes 
 const LazyHome = React.lazy(() => import('./Pages/Home'));
 const LazyShop = React.lazy(() => import('./Pages/Shop'));
@@ -22,6 +24,7 @@ const LazyCompare = React.lazy(() => import('./Pages/Compare'));
 
 const PrivateRoutes = () => {
 
+  const dispatch = useDispatch()
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate()
@@ -30,8 +33,11 @@ const PrivateRoutes = () => {
   useEffect(() => {
     if(!userInfo) {
       navigate('/login')
+    }else {
+      dispatch(getProducts())
     }
   }, [])
+
   
   return (
 

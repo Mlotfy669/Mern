@@ -75,12 +75,4 @@ const verify = (req, res, next) => {
   }
 };
 
-// logout user
-app.post("/api/logout", verify, (req, res) => {
-  const refreshToken = req.body.token;
-  refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
-  res.status(200).json("You logged out successfully.");
-});
-
-
 app.listen(5000, () => console.log("Backend server is running"))

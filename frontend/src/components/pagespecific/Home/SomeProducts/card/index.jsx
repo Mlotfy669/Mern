@@ -32,7 +32,6 @@ const ProductCard = ({ item }) => {
     useEffect(() => {
         Aos.init({ duration: 1500 });
     }, [])
-
     const AddItemCart = () => {
         const checkCart = cartData?.find(e => e.id === item.id)
         if (checkCart) {
@@ -65,7 +64,7 @@ const ProductCard = ({ item }) => {
             <div className={styles.cardContainer} data-aos="fade-left">
                 <div className={styles.UpperContainer}>
                     <div className={styles.imgContainer}>
-                        <img src={item.image} alt="" />
+                        <img src={item.image} alt="" loading = "lazy"/>
                     </div>
                     <div className={styles.options}>
                         <CustomTooltip title="Add To Wishlist" placement="top" arrow>

@@ -1,28 +1,15 @@
+import { DoubleArrow } from '@mui/icons-material'
 import { Skeleton } from '@mui/material'
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 import ProductCard from './card'
 import styles from './index.module.scss'
-import { Link } from 'react-router-dom'
-import { DoubleArrow } from '@mui/icons-material'
-import { ToastContainer } from 'react-toastify'
 
 
 const SomeProducts = () => {
-    const [somePdoducts, setSomePdoducts] = useState([])
-    const [loading, setLoading] = useState(false)
-
-    useEffect(() => {
-        setLoading(true)
-        axios.get("https://fakestoreapi.com/products")
-            .then(res => {
-                setSomePdoducts(res.data)
-                setLoading(false)
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }, [])
+    const {products , error , loading} = useSelector(state => state.products)
 
     return (
         <div className={styles.container}>
@@ -39,7 +26,7 @@ const SomeProducts = () => {
                             key={index}
                         />
                     )) :
-                    somePdoducts?.slice(0,10).map((item ,index) => (
+                    products?.slice(0,10).map((item ,index) => (
                         <ProductCard item={item} key={index} />
                     ))
                 }

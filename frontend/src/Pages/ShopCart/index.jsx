@@ -1,33 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import styles from './index.module.scss'
-import axios from 'axios'
 import ShopCartItem from '../../components/pagespecific/shopCart'
+import styles from './index.module.scss'
 
 const ShoppingCart = () => {
   const cart = useSelector(state => state.products?.value.cart)
+  const { products, loading } = useSelector(state => state.products)
   const [someProducts, setSomeProducts] = useState([])
   const [result, setResult] = useState([])
 
   useEffect(() => {
-    const getResponse = async () => {
-      try {
-        const response = await axios.get('https://fakestoreapi.com/products')
-        setSomeProducts(response.data)
-        let filterCart = cart.map(item => { return item.id })
-        let filterAll = someProducts.filter(item => filterCart.includes(item.id))
-        setResult(filterAll)
-      } catch (err) {
-        console.log('err')
-      }
-    }
-    getResponse()
-  }, [])
+    setSomeProducts(products)
+    let filterCart = cart.map(item => { return item.id })
+    let filterAll = someProducts.filter(item => filterCart.includes(item.id))
+    setResult(filterAll)
+
+  }, [products, someProducts, cart])
 
   return (
     <div className={styles.Container}>
       <div className={styles.cartProductContainer}>
-        {result.length ?
+        {!loading && result?.length ?
           <table>
             <thead>
               <th>Item Id</th>
@@ -42,12 +35,12 @@ const ShoppingCart = () => {
             <tbody>
               {
                 result.map((item, index) => (
-                  <ShopCartItem item={item} index={index} />
+                  <ShopCartItem item={item} key={index} index={index} />
                 ))}
             </tbody>
           </table>
-          :
-          <img src="./assets/images/notFound.png" />
+          : !loading && !result?.length &&
+          <img src="./assets/images/notFound.png" alt='not found' />
         }
       </div>
     </div>

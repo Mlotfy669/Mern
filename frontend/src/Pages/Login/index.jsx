@@ -8,6 +8,8 @@ import Aos from 'aos'
 import 'aos/dist/aos.css'
 import MuiAlert from '@mui/material/Alert';
 import styles from './index.module.scss'
+import { ToastContainer ,toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux'
 import { loginAction } from '../../redux/slices/loginSlice'
 const initailValue = {
@@ -43,14 +45,20 @@ const Login = () => {
         }
         setOpenSnackbar(false);
     };
-    const { userInfo } = useSelector(state => state.loginInfo)
+    const { userInfo ,error } = useSelector(state => state.loginInfo)
 
-    console.log(userInfo)
     useEffect(() => {
         if(userInfo) {
             navigate('/')
         }
     },[navigate, userInfo])
+    const [mounted, setMounted] = useState(false)
+    useEffect(()=>{
+        if(error && mounted) {
+            toast.error(error)
+        }
+        setMounted(true)
+    },[error])
     return (
         <div className={styles.Container} data-aos="fade-up">
             <Formik initialValues={initailValue} validationSchema={validationSchema} onSubmit={values => {
@@ -93,6 +101,7 @@ const Login = () => {
                     User Not Found !
                 </Alert>
             </Snackbar>
+            <ToastContainer />
         </div>
     )
 }

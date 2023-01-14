@@ -1,6 +1,5 @@
 import { Delete } from '@mui/icons-material'
 import { Rating } from '@mui/material'
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
@@ -11,51 +10,44 @@ import styles from './index.module.scss'
 const Compare = () => {
   const dispatch = useDispatch()
   const compare = useSelector(state => state.products?.value.compare)
+  const { products, loading } = useSelector(state => state.products)
   const [someProducts, setSomeProducts] = useState([])
   const [result, setResult] = useState([])
 
   useEffect(() => {
-    const getResponse = async () => {
-      try {
-        const response = await axios.get('https://fakestoreapi.com/products')
-        setSomeProducts(response.data)
-        let filterCompare = compare.map(item => { return item.id })
-        let filterAll = someProducts?.filter(item => filterCompare.includes(item.id))
-        setResult(filterAll)
-      } catch (err) {
-        console.log('err')
-      }
-    }
-    getResponse()
-  }, [someProducts])
+    setSomeProducts(products)
+    let filterCompare = compare.map(item => { return item.id })
+    let filterAll = someProducts?.filter(item => filterCompare.includes(item.id))
+    setResult(filterAll)
+  }, [someProducts, products, compare])
 
   return (
     <div className={styles.Container}>
       <div className={styles.cartProductContainer}>
-        {result.length ?
+        {!loading && result?.length ?
           <table>
             <tbody>
               <tr>
                 <th>Preview</th>
                 {result.map((item, index) => (
-                  <td>
-                    <img key={index} src={item.image} />
+                  <td key={index}>
+                    <img src={item.image} alt="ima" />
                   </td>
                 ))}
               </tr>
               <tr>
                 <th>Name</th>
                 {result.map((item, index) => (
-                  <td>
-                    <span className={styles.title} key={index}>{item.title}</span>
+                  <td key={index}>
+                    <span className={styles.title} >{item.title}</span>
                   </td>
                 ))}
               </tr>
               <tr>
                 <th>Price</th>
                 {result.map((item, index) => (
-                  <td>
-                    <span key={index}>${item.price}</span>
+                  <td key={index}>
+                    <span >${item.price}</span>
                   </td>
                 ))}
               </tr>
@@ -73,23 +65,23 @@ const Compare = () => {
               <tr>
                 <th>Description</th>
                 {result.map((item, index) => (
-                  <td>
-                    <span key={index}>{item.description}</span>
+                  <td key={index}>
+                    <span>{item.description}</span>
                   </td>
                 ))}
               </tr>
               <tr>
                 <th></th>
                 {result.map((item, index) => (
-                  <td>
-                    <button key={index} onClick={() => dispatch(deleteItemCompare({ id: item.id }))}><Delete /> Remove</button>
+                  <td key={index}>
+                    <button onClick={() => dispatch(deleteItemCompare({ id: item.id }))}><Delete /> Remove</button>
                   </td>
                 ))}
               </tr>
             </tbody>
           </table>
-          :
-          <img src="./assets/images/notFound.png" />
+          : !loading && !result?.length &&
+          <img src="./assets/images/notFound.png" alt='not found' />
         }
       </div>
       <ToastContainer />

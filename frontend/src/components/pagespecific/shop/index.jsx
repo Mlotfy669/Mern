@@ -1,13 +1,14 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import FilterBar from './FilterBar'
 import styles from './index.module.scss'
 import ProductsContainer from './Products'
 
 const ShopContainer = () => {
-  const [appData, setAppData] = useState([]);
-  const [list, setList] = useState([]);
-  const [loading, setLoading] = useState(false)
+  const {products , error , loading} = useSelector(state => state.products)
+  const [appData, setAppData] = useState(products ||[]);
+  const [list, setList] = useState(products || []);
   const [selectedPrice, setSelectedPrice] = useState([0, 1000]);
   const [category, setCategory] = useState([
     { id: 1, checked: false, label: `Men's Clothing` },
@@ -18,7 +19,6 @@ const ShopContainer = () => {
   const [selectedRating, setSelectedRating] = useState(null);
   const [sort, setSort] = useState('')
   const [searchInput, setSearchInput] = useState('')
-
   // handle rating 
   const handleSelectRating = (event, value) => {
     if (!value) {
@@ -41,19 +41,6 @@ const ShopContainer = () => {
     );
     setCategory(changeCheckedCategory);
   };
-
-  useEffect(() => {
-    setLoading(true)
-    axios.get('https://fakestoreapi.com/products')
-      .then(res => {
-        setAppData(res.data)
-        setList(res.data)
-        setLoading(false)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }, [])
 
   const handleSorting = (e) => {
     setSort(e.target.value)
